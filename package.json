@@ -1,0 +1,42 @@
+{
+  "name": "simple-deploy",
+  "version": "0.1.0",
+  "description": "A simple deploy tool for based on ssh and node.js",
+  "main": "dist/simple-deploy.js",
+  "module": "dist/simple-deploy.esm.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint src test",
+    "build": "npm run build:main && npm run build:esm",
+    "build:main": "rollup -c build/rollup.config.js  && uglifyjs dist/simple-deploy.js --compress dead_code=false -m --comments -o dist/simple-deploy.min.js",
+    "build:esm": "rollup -c build/rollup.config.js --environment ESM"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iboying/simple-deploy.js.git"
+  },
+  "keywords": [
+    "deploy",
+    "web"
+  ],
+  "files": [
+    "dist/**/*"
+  ],
+  "author": "iboying",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "eslint": "^5.16.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.17.3",
+    "eslint-plugin-node": "^9.1.0",
+    "eslint-plugin-promise": "^4.1.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "rollup": "^0.57.1",
+    "rollup-plugin-buble": "^0.19.2",
+    "rollup-plugin-replace": "^2.0.0",
+    "uglify-js": "^3.3.20"
+  }
+}
