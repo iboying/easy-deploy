@@ -46,7 +46,7 @@ async function deploy() {
     await secondServer.sync();
     console.log('Deploy success');
   } catch (err) {
-    console.log('deploy failed');
+    console.log('Deploy failed');
   }
 }
 
