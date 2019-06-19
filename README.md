@@ -1,7 +1,7 @@
 Overview
 --------
 
-simple-deploy.js is a front-end deployment tool based on rsync and node.js.
+**simple-deploy.js** is a front-end deployment tool based on rsync and node.js.
 
 Prerequisites
 -------------
@@ -21,7 +21,7 @@ Usage
 
 Create a file **deploy.js** and include the follow code within it:
 
-```
+```javascript
 const SimpleDeploy = require('simple-deploy');
 
 const firstServer = new SimpleDeploy({
