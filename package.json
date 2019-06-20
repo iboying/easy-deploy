@@ -1,19 +1,19 @@
 {
-  "name": "simple-deploy",
+  "name": "easy-deploy",
   "version": "0.1.0",
   "description": "A simple deploy tool for based on ssh and node.js",
-  "main": "dist/simple-deploy.js",
-  "module": "dist/simple-deploy.esm.js",
+  "main": "dist/easy-deploy.js",
+  "module": "dist/easy-deploy.esm.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint src test",
     "build": "npm run build:main && npm run build:esm",
-    "build:main": "rollup -c build/rollup.config.js  && uglifyjs dist/simple-deploy.js --compress dead_code=false -m --comments -o dist/simple-deploy.min.js",
+    "build:main": "rollup -c build/rollup.config.js  && uglifyjs dist/easy-deploy.js --compress dead_code=false -m --comments -o dist/easy-deploy.min.js",
     "build:esm": "rollup -c build/rollup.config.js --environment ESM"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/iboying/simple-deploy.git"
+    "url": "git+https://github.com/iboying/easy-deploy.git"
   },
   "keywords": [
     "deploy",

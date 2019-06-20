@@ -1,7 +1,7 @@
 Overview
 --------
 
-**simple-deploy.js** is a front-end deployment tool based on rsync and node.js.
+**easy-deploy.js** is a front-end deployment tool based on rsync and node.js.
 
 Prerequisites
 -------------
@@ -13,7 +13,7 @@ Installation
 ------------
 
 ```
-npm install simple-deploy --dev
+npm install easy-deploy --dev
 ```
 
 Usage
@@ -22,15 +22,15 @@ Usage
 Create a file **deploy.js** and include the follow code within it:
 
 ```javascript
-const SimpleDeploy = require('simple-deploy');
+const EasyDeploy = require('easy-deploy');
 
-const firstServer = new SimpleDeploy({
+const firstServer = new EasyDeploy({
   username: 'web',
   host: 'Your remote server ip address',
   localPath: 'dist',
   remotePath: '/home/first/project/dist',
 });
-const secondServer = new SimpleDeploy({
+const secondServer = new EasyDeploy({
   username: 'web',
   host: 'Your remote server ip address',
   localPath: 'dist',
@@ -39,9 +39,9 @@ const secondServer = new SimpleDeploy({
 
 async function deploy() {
   try {
-    await SimpleDeploy.shell('npm run lint');
-    await SimpleDeploy.shell('npm run test');
-    await SimpleDeploy.shell('npm run build');
+    await EasyDeploy.shell('npm run lint');
+    await EasyDeploy.shell('npm run test');
+    await EasyDeploy.shell('npm run build');
     await firstServer.sync();
     await secondServer.sync();
     console.log('Deploy success');
@@ -58,11 +58,9 @@ Then, run `node deploy.js` to deploy project.
 Apis
 ----
 
-- `SimpleDeploy.shell('npm run test')` exec local shell command.
+- `EasyDeploy.shell('npm run test')` exec local shell command.
 - `instance.remote('pwd')` exec remote server shell command.
 - `instance.sync('-ravz')` sync localPath content with remote server, the arguments is rsync flags and the default flags is `-avI`
-
-
 
 Contributing
 -------------
