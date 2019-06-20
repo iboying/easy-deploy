@@ -1,5 +1,5 @@
 /**
- * easy-deploy.js v0.1.0
+ * easy-deploy.js v0.2.0
  * (c) 2019 iboying(weboying@gmail.com)
  * @license MIT
  */
@@ -27,7 +27,6 @@ var EasyDeploy = function EasyDeploy (options) {
 };
 
 EasyDeploy.shell = function shell (script) {
-  console.log(chalk.cyan(("RUN " + script)));
   return new Promise(function (resolve, reject) {
     var task = exec(script);
     task.stdout.on('data', function (data) {
