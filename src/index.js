@@ -1,6 +1,7 @@
-const { spawn } = require('child_process')
+const { exec } = require('child_process')
+const chalk = require('chalk')
 
-export default class SimpleDeploy {
+export default class EasyDeploy {
   constructor (options) {
     const { username, host, localPath, remotePath, port } = options
     if (!(username && host && localPath && remotePath)) {
@@ -15,21 +16,20 @@ export default class SimpleDeploy {
   }
 
   static shell (script) {
-    const array = script.trim().replace(/\s{2,}/g, ' ').split(' ')
-    const task = spawn(array[0], array.splice(1))
     return new Promise((resolve, reject) => {
+      let task = exec(script)
       task.stdout.on('data', (data) => {
-        console.log(data.toString())
+        console.log(chalk.blue(data.toString()))
       })
       task.stderr.on('data', (data) => {
-        console.log(data.toString())
+        console.log(chalk.red(data.toString()))
       })
-      task.on('close', (code) => {
-        if (code !== 0) {
-          const error = new Error(`Process exited with code ${code}`)
-          reject(error)
-        } else {
+      task.on('exit', (code) => {
+        task = null
+        if (code === 0) {
           resolve()
+        } else {
+          reject(new Error(`Process exited with code ${code}`))
         }
       })
     })
@@ -38,12 +38,12 @@ export default class SimpleDeploy {
   remote (script) {
     const { username, host, port } = this
     const remoteScript = `ssh -p ${port} ${username}@${host} ${script}`
-    return SimpleDeploy.shell(remoteScript)
+    return EasyDeploy.shell(remoteScript)
   }
 
   sync (flags = '-avI') {
     const { username, host, port, localPath, remotePath } = this
-    const script = `rsync ${flags} -r --delete --port=${port} ${localPath} ${username}@${host}:${remotePath}`
-    return SimpleDeploy.shell(script)
+    const script = `rsync ${flags} -r --delete -e 'ssh -p ${port}' ${localPath} ${username}@${host}:${remotePath}`
+    return EasyDeploy.shell(script)
   }
 }

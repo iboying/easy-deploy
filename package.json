@@ -1,11 +1,11 @@
 {
-  "name": "easy-deploy",
-  "version": "0.1.0",
+  "name": "@iboying/easy-deploy",
+  "version": "0.2.0",
   "description": "A simple deploy tool for based on ssh and node.js",
   "main": "dist/easy-deploy.js",
   "module": "dist/easy-deploy.esm.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node test/index.js",
     "lint": "eslint src test",
     "build": "npm run build:main && npm run build:esm",
     "build:main": "rollup -c build/rollup.config.js  && uglifyjs dist/easy-deploy.js --compress dead_code=false -m --comments -o dist/easy-deploy.min.js",
@@ -24,7 +24,9 @@
   ],
   "author": "iboying",
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "chalk": "^2.4.2"
+  },
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-preset-env": "^1.7.0",

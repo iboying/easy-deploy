@@ -13,7 +13,7 @@ Installation
 ------------
 
 ```
-npm install easy-deploy --dev
+npm install @iboying/easy-deploy --dev
 ```
 
 Usage
@@ -22,18 +22,19 @@ Usage
 Create a file **deploy.js** and include the follow code within it:
 
 ```javascript
-const EasyDeploy = require('easy-deploy');
+const EasyDeploy = require('@iboying/easy-deploy');
 
 const firstServer = new EasyDeploy({
   username: 'web',
   host: 'Your remote server ip address',
-  localPath: 'dist',
+  localPath: 'dist/*',
+  port: 1234,
   remotePath: '/home/first/project/dist',
 });
 const secondServer = new EasyDeploy({
   username: 'web',
   host: 'Your remote server ip address',
-  localPath: 'dist',
+  localPath: 'dist/*',
   remotePath: '/home/second/project/dist',
 });
 

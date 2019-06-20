@@ -1,5 +1,5 @@
-import SimpleDeploy from './src/index';
+import EasyDeploy from './src/index'
 
-SimpleDeploy.version = '__VERSION__';
+EasyDeploy.version = '__VERSION__'
 
-export default SimpleDeploy;
+export default EasyDeploy

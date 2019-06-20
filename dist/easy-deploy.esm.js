@@ -4,9 +4,10 @@
  * @license MIT
  */
 var ref = require('child_process');
-var spawn = ref.spawn;
+var exec = ref.exec;
+var chalk = require('chalk');
 
-var SimpleDeploy = function SimpleDeploy (options) {
+var EasyDeploy = function EasyDeploy (options) {
   var username = options.username;
   var host = options.host;
   var localPath = options.localPath;
@@ -23,37 +24,37 @@ var SimpleDeploy = function SimpleDeploy (options) {
   this.port = port || 22;
 };
 
-SimpleDeploy.shell = function shell (script) {
-  var array = script.trim().replace(/\s{2,}/g, ' ').split(' ');
-  var task = spawn(array[0], array.splice(1));
+EasyDeploy.shell = function shell (script) {
+  console.log(chalk.cyan(("RUN " + script)));
   return new Promise(function (resolve, reject) {
+    var task = exec(script);
     task.stdout.on('data', function (data) {
-      console.log(data.toString());
+      console.log(chalk.blue(data.toString()));
     });
     task.stderr.on('data', function (data) {
-      console.log(data.toString());
+      console.log(chalk.red(data.toString()));
     });
-    task.on('close', function (code) {
-      if (code !== 0) {
-        var error = new Error(("Process exited with code " + code));
-        reject(error);
-      } else {
+    task.on('exit', function (code) {
+      task = null;
+      if (code === 0) {
         resolve();
+      } else {
+        reject(new Error(("Process exited with code " + code)));
       }
     });
   })
 };
 
-SimpleDeploy.prototype.remote = function remote (script) {
+EasyDeploy.prototype.remote = function remote (script) {
   var ref = this;
     var username = ref.username;
     var host = ref.host;
     var port = ref.port;
   var remoteScript = "ssh -p " + port + " " + username + "@" + host + " " + script;
-  return SimpleDeploy.shell(remoteScript)
+  return EasyDeploy.shell(remoteScript)
 };
 
-SimpleDeploy.prototype.sync = function sync (flags) {
+EasyDeploy.prototype.sync = function sync (flags) {
     if ( flags === void 0 ) flags = '-avI';
 
   var ref = this;
@@ -62,8 +63,8 @@ SimpleDeploy.prototype.sync = function sync (flags) {
     var port = ref.port;
     var localPath = ref.localPath;
     var remotePath = ref.remotePath;
-  var script = "rsync " + flags + " -r --delete --port=" + port + " " + localPath + " " + username + "@" + host + ":" + remotePath;
-  return SimpleDeploy.shell(script)
+  var script = "rsync " + flags + " -r --delete -e 'ssh -p " + port + "' " + localPath + " " + username + "@" + host + ":" + remotePath;
+  return EasyDeploy.shell(script)
 };
 
-export default SimpleDeploy;
+export default EasyDeploy;
