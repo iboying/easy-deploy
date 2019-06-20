@@ -27,14 +27,14 @@ const EasyDeploy = require('@iboying/easy-deploy');
 const firstServer = new EasyDeploy({
   username: 'web',
   host: 'Your remote server ip address',
-  localPath: 'dist/*',
+  localPath: 'dist/',
   port: 1234,
   remotePath: '/home/first/project/dist',
 });
 const secondServer = new EasyDeploy({
   username: 'web',
   host: 'Your remote server ip address',
-  localPath: 'dist/*',
+  localPath: 'dist/',
   remotePath: '/home/second/project/dist',
 });
 
