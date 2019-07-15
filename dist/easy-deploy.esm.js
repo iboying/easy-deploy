@@ -1,5 +1,5 @@
 /**
- * easy-deploy.js v0.2.0
+ * easy-deploy.js v0.3.0
  * (c) 2019 iboying(weboying@gmail.com)
  * @license MIT
  */
@@ -62,7 +62,7 @@ EasyDeploy.prototype.sync = function sync (flags) {
     var port = ref.port;
     var localPath = ref.localPath;
     var remotePath = ref.remotePath;
-  var script = "rsync " + flags + " -r --delete -e 'ssh -p " + port + "' " + localPath + " " + username + "@" + host + ":" + remotePath;
+  var script = "rsync " + flags + " -r -e 'ssh -p " + port + "' " + localPath + " " + username + "@" + host + ":" + remotePath;
   return EasyDeploy.shell(script)
 };
 
