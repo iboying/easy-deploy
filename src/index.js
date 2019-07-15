@@ -43,7 +43,7 @@ export default class EasyDeploy {
 
   sync (flags = '-avI') {
     const { username, host, port, localPath, remotePath } = this
-    const script = `rsync ${flags} -r --delete -e 'ssh -p ${port}' ${localPath} ${username}@${host}:${remotePath}`
+    const script = `rsync ${flags} -r -e 'ssh -p ${port}' ${localPath} ${username}@${host}:${remotePath}`
     return EasyDeploy.shell(script)
   }
 }

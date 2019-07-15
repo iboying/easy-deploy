@@ -61,7 +61,7 @@ Apis
 
 - `EasyDeploy.shell('npm run test')` exec local shell command.
 - `instance.remote('pwd')` exec remote server shell command.
-- `instance.sync('-ravz')` sync localPath content with remote server, the arguments is rsync flags and the default flags is `-avI`
+- `instance.sync('-ravz')` sync localPath content with remote server, the arguments is rsync flags and the default flags is `-avI`, such as add delete logic: '-ravz --delete'
 
 Contributing
 -------------
