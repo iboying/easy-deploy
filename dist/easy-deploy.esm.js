@@ -1,5 +1,5 @@
 /**
- * easy-deploy.js v0.3.0
+ * easy-deploy.js v0.3.1
  * (c) 2020 iboying(weboying@gmail.com)
  * @license MIT
  */
@@ -29,8 +29,9 @@ EasyDeploy.shell = function shell (script) {
     var task = exec(script);
     var result = '';
     task.stdout.on('data', function (data) {
-      console.log(chalk.blue(data.toString()));
-      result += data.toString();
+      var dataString = data.toString();
+      console.log(chalk.blue(dataString));
+      result += dataString;
     });
     task.stderr.on('data', function (data) {
       console.log(chalk.red(data.toString()));
@@ -39,10 +40,10 @@ EasyDeploy.shell = function shell (script) {
       task = null;
       if (code === 0) {
         resolve(result);
-        result = null;
       } else {
         reject(new Error(("Process exited with code " + code)));
       }
+      result = null;
     });
   })
 };

@@ -1,6 +1,6 @@
 {
   "name": "@iboying/easy-deploy",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "A simple deploy tool for based on ssh and node.js",
   "main": "dist/easy-deploy.js",
   "module": "dist/easy-deploy.esm.js",
