@@ -18,8 +18,11 @@ export default class EasyDeploy {
   static shell (script) {
     return new Promise((resolve, reject) => {
       let task = exec(script)
+      let result = ''
       task.stdout.on('data', (data) => {
-        console.log(chalk.blue(data.toString()))
+        const dataString = data.toString()
+        console.log(chalk.blue(dataString))
+        result += dataString
       })
       task.stderr.on('data', (data) => {
         console.log(chalk.red(data.toString()))
@@ -27,10 +30,11 @@ export default class EasyDeploy {
       task.on('exit', (code) => {
         task = null
         if (code === 0) {
-          resolve()
+          resolve(result)
         } else {
           reject(new Error(`Process exited with code ${code}`))
         }
+        result = null
       })
     })
   }

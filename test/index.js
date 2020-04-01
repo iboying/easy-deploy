@@ -8,3 +8,7 @@ const deploy = new Deploy({
 })
 
 deploy.sync()
+
+Deploy.shell('git rev-parse head').then((data) => {
+  console.log(data)
+})
