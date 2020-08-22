@@ -48,13 +48,17 @@ EasyDeploy.shell = function shell (script) {
   })
 };
 
-EasyDeploy.prototype.remote = function remote (script) {
+EasyDeploy.prototype.remoteShell = function remoteShell (script) {
   var ref = this;
     var username = ref.username;
     var host = ref.host;
     var port = ref.port;
   var remoteScript = "ssh -p " + port + " " + username + "@" + host + " " + script;
   return EasyDeploy.shell(remoteScript)
+};
+
+EasyDeploy.prototype.isExist = function isExist () {
+  return this.remoteShell(("cd " + (this.remotePath) + " || exit"))
 };
 
 EasyDeploy.prototype.sync = function sync (flags) {
@@ -67,7 +71,7 @@ EasyDeploy.prototype.sync = function sync (flags) {
     var localPath = ref.localPath;
     var remotePath = ref.remotePath;
   var script = "rsync " + flags + " -r -e 'ssh -p " + port + "' " + localPath + " " + username + "@" + host + ":" + remotePath;
-  return EasyDeploy.shell(script)
+  return this.isExist(remotePath).then(EasyDeploy.shell(script))
 };
 
 export default EasyDeploy;

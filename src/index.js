@@ -39,15 +39,19 @@ export default class EasyDeploy {
     })
   }
 
-  remote (script) {
+  remoteShell (script) {
     const { username, host, port } = this
     const remoteScript = `ssh -p ${port} ${username}@${host} ${script}`
     return EasyDeploy.shell(remoteScript)
   }
 
+  isExist () {
+    return this.remoteShell(`cd ${this.remotePath} || exit`)
+  }
+
   sync (flags = '-avI') {
     const { username, host, port, localPath, remotePath } = this
     const script = `rsync ${flags} -r -e 'ssh -p ${port}' ${localPath} ${username}@${host}:${remotePath}`
-    return EasyDeploy.shell(script)
+    return this.isExist(remotePath).then(EasyDeploy.shell(script))
   }
 }
