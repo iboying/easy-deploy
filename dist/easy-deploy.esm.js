@@ -1,5 +1,5 @@
 /**
- * easy-deploy.js v0.3.1
+ * easy-deploy.js v0.4.0
  * (c) 2020 iboying(weboying@gmail.com)
  * @license MIT
  */
